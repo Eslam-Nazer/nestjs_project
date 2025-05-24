@@ -1,4 +1,73 @@
 import { Injectable } from '@nestjs/common';
+import { randomInt } from 'crypto';
+import { User } from './interface/user.interface';
 
 @Injectable()
-export class UsersService {}
+export class UsersService {
+  private users = [
+    {
+      id: 7299308098380461,
+      username: 'Dominic',
+      email: 'Adolph.Beahan@hotmail.com',
+      role: 'ADMIN',
+    },
+    {
+      id: 4641414017009990,
+      username: 'Zane',
+      email: 'Francesca.Strosin68@gmail.com',
+      role: 'INTERN',
+    },
+    {
+      id: 5853908342049769,
+      username: 'Lavada',
+      email: 'Rubye35@hotmail.com',
+      role: 'ENGINEER',
+    },
+    {
+      id: 1994884181309653,
+      username: 'Joelle',
+      email: 'Yasmine_Cole@hotmail.com',
+      role: 'ADMIN',
+    },
+    {
+      id: 8733052866175101,
+      username: 'Mariane',
+      email: 'Cullen.Ortiz@yahoo.com',
+      role: 'INTERN',
+    },
+    {
+      id: 5397585683377609,
+      username: 'Maria',
+      email: 'Jade71@gmail.com',
+      role: 'ENGINEER',
+    },
+    {
+      id: 5254596763241332,
+      username: 'Xander',
+      email: 'Chadd_Wilderman42@hotmail.com',
+      role: 'ADMIN',
+    },
+  ];
+
+  getAll(role?: 'INTERN' | 'ENGINEER' | 'ADMIN') {
+    if (role) {
+      return this.users.filter((user) => user.role == role);
+    }
+    return this.users;
+  }
+
+  findOne(id: number) {
+    const user = this.users.find((user) => user.id == id);
+
+    return user;
+  }
+
+  create(user: Omit<User, 'id'>) {
+    const id = randomInt(10000000);
+
+    const newUser: User = { id, ...user };
+
+    this.users.push(newUser);
+    return newUser;
+  }
+}
