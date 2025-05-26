@@ -70,4 +70,29 @@ export class UsersService {
     this.users.push(newUser);
     return newUser;
   }
+
+  update(
+    id: number,
+    updateUser: {
+      username?: string;
+      email?: string;
+      role?: 'INTERN' | 'ENGINEER' | 'ADMIN';
+    },
+  ) {
+    this.users = this.users.map((user) => {
+      if (user.id === id) {
+        return { ...user, ...updateUser };
+      }
+      return user;
+    });
+
+    return this.findOne(id);
+  }
+
+  delete(id: number) {
+    const removeUser = this.findOne(id);
+    this.users = this.users.filter((user) => user.id !== id);
+
+    return removeUser;
+  }
 }
