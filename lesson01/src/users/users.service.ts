@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { randomInt } from 'crypto';
 import { User } from './interface/user.interface';
+import {CreateUserDto} from "./dto/create-user.dto";
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -62,10 +64,10 @@ export class UsersService {
     return user;
   }
 
-  create(user: Omit<User, 'id'>) {
+  create(createUserDto: CreateUserDto) {
     const id = randomInt(10000000);
 
-    const newUser: User = { id, ...user };
+    const newUser: User = { id, ...createUserDto };
 
     this.users.push(newUser);
     return newUser;
@@ -73,15 +75,11 @@ export class UsersService {
 
   update(
     id: number,
-    updateUser: {
-      username?: string;
-      email?: string;
-      role?: 'INTERN' | 'ENGINEER' | 'ADMIN';
-    },
+    updateUserDto: UpdateUserDto,
   ) {
     this.users = this.users.map((user) => {
       if (user.id === id) {
-        return { ...user, ...updateUser };
+        return { ...user, ...updateUserDto };
       }
       return user;
     });
