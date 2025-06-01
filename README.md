@@ -43,12 +43,12 @@ npx prisma migrate dev --name init
 
 ## 📦 Scripts
 
-npm run start         Start the app
-npm run start:dev      Start in development mode
-npm run build          Compile the app
-npm run test           Run unit tests
-npm run test:e2e       Run end-to-end tests
-npm run lint           Lint the code
+- npm run start         Start the app
+- npm run start:dev      Start in development mode
+- npm run build          Compile the app
+- npm run test           Run unit tests
+- npm run test:e2e       Run end-to-end tests
+- npm run lint           Lint the code
 
 ## LoggerService
 ### Logs are saved under:
