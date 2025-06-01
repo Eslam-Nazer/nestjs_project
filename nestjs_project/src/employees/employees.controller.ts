@@ -10,7 +10,7 @@ import {
   Ip,
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
-import { Prisma } from 'generated/prisma';
+import { Prisma } from '@prisma/client';
 import { MyLoggerService } from 'src/my-logger/my-logger.service';
 
 @Controller('employees')
@@ -30,7 +30,7 @@ export class EmployeesController {
     @Ip() Ip: string,
     @Query('role') role?: 'INTERN' | 'ENGINEER' | 'ADMIN',
   ) {
-    this.logger.log(`IP: ${Ip}`);
+    this.logger.log(`IP: ${Ip}`, EmployeesController.name);
     return this.employeesService.findAll(role);
   }
 

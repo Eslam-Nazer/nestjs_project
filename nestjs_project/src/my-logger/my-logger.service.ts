@@ -5,24 +5,29 @@ import { promises as fsPromise } from 'fs';
 
 @Injectable()
 export class MyLoggerService extends ConsoleLogger {
-  async logFile(entry) {
-    const formattedEntry = `${Intl.DateTimeFormat('en-US', {
+  async logFile(entry): Promise<void> {
+    const timestamp = `${Intl.DateTimeFormat('en-US', {
       dateStyle: 'medium',
       timeStyle: 'short',
       timeZone: 'Africa/Cairo',
-    }).format(new Date())} ${entry}\n`;
+    }).format(new Date())}`;
+
+    const formattedEntry = `${timestamp}\t${entry}\n`;
+
+    const logsDir = path.resolve(process.cwd(), 'logs');
+    const logFilePath = path.join(logsDir, 'nest.log');
 
     try {
-      if (!fs.existsSync(path.join(__dirname, '..', '..', 'logs'))) {
-        await fsPromise.mkdir(path.join(__dirname, '..', '..', 'logs'));
+      if (!fs.existsSync(logsDir)) {
+        await fsPromise.mkdir(logsDir, { recursive: true });
       }
 
-      await fsPromise.appendFile(
-        path.join(__dirname, '..', '..', 'logs', 'nest.log'),
-        formattedEntry,
-      );
+      await fsPromise.appendFile(path.join(logFilePath), formattedEntry);
     } catch (error) {
-      if (error instanceof Error) console.error(error.message);
+      console.error(
+        `Logger failed: `,
+        error instanceof Error ? error.message : error,
+      );
     }
   }
 
