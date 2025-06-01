@@ -17,28 +17,6 @@ This project is a powerful backend application built using [NestJS](https://nest
 
 ---
 
-## 📁 Project Structure
-
-nestjs_project/
-├── prisma/ # Prisma schema and client
-├── src/
-│ ├── app.module.ts # Root module
-│ ├── main.ts # Entry point
-│ ├── database/ # PrismaService, database config
-│ ├── employees/ # Feature module with controller, service, DTOs
-│ ├── rust/ # Rust API integration logic
-│ ├── common/
-│ │ ├── filters/ # Global exception filters
-│ │ ├── logger/ # LoggerService for logging to file
-│ │ └── pipes/ # Custom validation pipes
-├── logs/ # Folder for generated log files
-├── .env # Environment variables (example provided)
-├── package.json
-└── README.md
-
-
----
-
 ## ⚙️ Setup & Installation
 
 ### 1. Clone the Repository
